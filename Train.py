@@ -7,8 +7,6 @@ from torch.utils.data import DataLoader
 import csv
 import numpy as np
 
-cuda_id = torch.cuda.current_device()
-dense = 248
 class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
@@ -36,9 +34,12 @@ class CustomDataset(Dataset):
         return features, label
     
 def main():
+    cuda_id = torch.cuda.current_device()
+    dense = 248
     model = NeuralNetwork()
     model.to("cuda")
-    dataset = CustomDataset("apple_quality.csv")
+    
+    dataset = CustomDataset("data/numerical/apple_quality.csv")
     batch_size = 500
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
     validloader = 8
